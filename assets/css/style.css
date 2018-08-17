@@ -1,0 +1,145 @@
+*{
+    color: #636b6f;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+html, body {
+    background-color: #fff;
+    min-height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    font-size: 64px;
+    font-weight: 100;
+}
+
+h2{
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+p {
+    color: #636b6f;
+    padding: 0 10px;
+    font-weight: 400;
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 30px;
+}
+a{
+    color:#636b6f;
+    font-weight: 400;
+    font-size: 13px;
+}
+a:hover{
+    color:#004085;
+}
+label{
+    display: block;
+    margin-bottom: 15px;
+}
+
+button{
+    background-color: #fff;
+    border:1px solid #ccc;
+    color:#636b6f;
+    font-weight: 500;
+    padding: 18px 50px;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+button.button--small{
+    padding: 12px 30px;
+    font-size: 12px;
+    margin-top: 0px;
+}
+button:hover{
+    background-color: #636b6f;
+    color:#fff;
+    border-color: #636b6f;
+}
+
+input{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color:#636b6f;
+    padding: 8px 20px;
+    width: 100%;
+    transition: 0.3s;
+    max-width: 400px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+input.result{
+    text-align: center;
+    max-width: 80px;
+}
+
+input::placeholder{
+    color:#ccc;
+}
+
+table{
+    width: 100%;
+}
+
+tr{
+
+}
+
+td,th{
+    padding: 12px 5px;
+    border:1px solid #ccc;
+}
+
+.alert-success{
+    max-width:400px;
+    margin: 10px auto;
+}
+
+.block{
+    display: block;
+    width: 100%;
+}
+
+.form__element{
+    padding: 5px 0;
+}
+
+.full-height {
+    min-height: 100vh;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.breakline{
+    margin: 20px auto;
+    display: block;
+    text-align: center;
+    width: 100px;
+    border-bottom: 1px dashed #636b6f;
+}
+.wrapper{
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+}
+.content {
+    text-align: center;
+}
+.home{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-align: left;
+}

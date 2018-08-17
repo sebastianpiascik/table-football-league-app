@@ -1,0 +1,17 @@
+Celem zadania jest stworzenie prostego systemu do zarządzania ligą gry w piłkarzyki.
+System powinien umożliwiać rozegranie sezonu.
+Na wejściu system powinien przyjąć liczbę graczy w danym sezonie oraz ich imiona/nicki.
+Na podstawie tych danych system powinien wygenerować wszystkie możliwe kombinacje dwójkowe
+meczy (mecze rozgrywane są dwóch na dwóch, sezon powinien przewidzieć wszystkie możliwe
+kombinacje dwójek, ale bez powtórzeń). Czyli dla czterech graczy A, B, C, D mamy następujące
+kombinacje meczy:
+A + B vs C + D
+A + D vs B + C
+A + C vs B + D
+System musi dawać możliwość zapisywania wyników dla każdego meczu.
+Na podstawie wyników powinna być generowana bieżąca tabela wyników sortowana na podstawie
+różnicy zwycięstw nad porażkami (analogicznie zwycięstwo daje 1 punkt dla każdego zawodnika
+zwycięskiej drużyny, porażka nie daje punktów). Remis w rozgrywkach jest niemożliwy. Rozwiązanie
+napisz w PHP 5.6 lub 7, obiektowo. Do zapisywania wyników wykorzystaj bazę danych MySql.
+Rozwiązaniem jest kod (preferowany dostęp do repozytorium Git, np. na Bitbuckecie) oraz dump
+bazy danych (plik .sql).
