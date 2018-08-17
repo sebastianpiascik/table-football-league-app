@@ -25,8 +25,6 @@ require_once(TEMPLATES_PATH . "/partials/header.php");
 
             $index = 0;
 
-            $game_array = array();
-
             while ($single_game = $games->fetch()) {
 
                 $team1Participants = $team->getParticipantID($single_game['team_1_id']);
@@ -65,33 +63,93 @@ if (isset($_POST['btnSaveScore'])) {
      * Index - amount of
      */
 
-
+    $reloadPage = true;
     for ($i = 0; $i < $index; $i++) {
 
         if (! empty($_POST['team1_score'][$i]) && ! empty($_POST['team2_score'][$i])) {
 
-            $game = new Game($db);
+            if($_POST['team1_score'][$i] == $_POST['team2_score'][$i]){
+                $reloadPage=false;
+                echo "Nie ma remisów ! Gramy dalej.";
+            } else{
 
-            $game->setId($_POST['game_id'][$i]);
+                $game = new Game($db);
 
-            $game->setResult($_POST['team1_score'][$i] . '-' . $_POST['team2_score'][$i]);
-            if ($_POST['team1_score'][$i] > $_POST['team2_score'][$i]) {
-                $game->setWinner($_POST['team1_id'][$i]);
-            } else {
-                $game->setWinner($_POST['team2_id'][$i]);
+                $game->setId($_POST['game_id'][$i]);
+
+                $game->setResult($_POST['team1_score'][$i] . '-' . $_POST['team2_score'][$i]);
+                if ($_POST['team1_score'][$i] > $_POST['team2_score'][$i]) {
+                    $game->setWinner($_POST['team1_id'][$i]);
+                } else{
+                    $game->setWinner($_POST['team2_id'][$i]);
+                }
+
+
+                $game->saveResults();
             }
-
-
-            $game->saveResults();
 
         }
 
     }
 
-    header("Location: http://" . $_SERVER['SERVER_NAME'] . "/views/league.php");
+    if($reloadPage)
+        header("Location: http://" . $_SERVER['SERVER_NAME'] . "/views/league.php");
 
 }
+?>
+
+
+<div class="breakline"></div>
+
+<h2>Tabela wyników</h2>
+
+<table border="1">
+    <tr>
+        <th>Uczestnik</th>
+        <th>Ilość punktów</th>
+    </tr>
+    <?php
+
+    $games = $db->getDataTable('game');
+    $winners = array();
+    while ($single_game = $games->fetch()){
+        if(! empty($single_game['winner']))
+            $winners[] = $team->getParticipantID($single_game['winner']);
+
+    }
+//    print_r($winners);
+
+    $result = $db->getDataTable('participant');
+    $participants = array();
+    while ($row = $result->fetch()) {
+        $participants[] = $row['id'];
+    }
+
+    $points = 0;
+    foreach ($participants as $p) {
+
+        foreach ($winners as $team_winner){
+            for ($i=0; $i<2; $i++){
+                if($team_winner[$i] == $p){
+                    $points++;
+                }
+            }
+        }
+
+        echo '<tr>';
+        echo '<td>'. $participant->getNickById($p) .'</td>';
+        echo '<td>'.$points.'</td>';
+        echo '</tr>';
+
+        $points=0;
+    }
+
+    ?>
+</table>
+
+<?php
 
 require_once(TEMPLATES_PATH . "/partials/footer.php");
 
 ?>
+
