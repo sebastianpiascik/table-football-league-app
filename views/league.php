@@ -8,7 +8,7 @@ require_once(TEMPLATES_PATH . "/partials/header.php");
 
     <h2>Tabela meczy: </h2>
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?page=main" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <table border="1">
             <tr>
                 <th>ID</th>
@@ -92,8 +92,12 @@ if (isset($_POST['btnSaveScore'])) {
 
     }
 
-    if($reloadPage)
-        header("Location: http://" . $_SERVER['SERVER_NAME'] . "/views/league.php");
+    if($reloadPage){
+        echo("<script>location.href = 'http://".$_SERVER['SERVER_NAME']."/views/league.php';</script>");
+//        header("Location: http://" . $_SERVER['SERVER_NAME'] . "/views/league.php");
+//        exit();
+    }
+
 
 }
 ?>
@@ -125,9 +129,10 @@ if (isset($_POST['btnSaveScore'])) {
         $participants[] = $row['id'];
     }
 
+    $participantPointsArray = array();
+
     $points = 0;
     foreach ($participants as $p) {
-
         foreach ($winners as $team_winner){
             for ($i=0; $i<2; $i++){
                 if($team_winner[$i] == $p){
@@ -135,13 +140,21 @@ if (isset($_POST['btnSaveScore'])) {
                 }
             }
         }
+        $participantPointsArray[] = array($p, $points);
+        $points=0;
+    }
+
+    usort($participantPointsArray, function($a, $b) {
+        return $b[1] - $a[1];
+    });
+
+    foreach ($participantPointsArray as $pp){
 
         echo '<tr>';
-        echo '<td>'. $participant->getNickById($p) .'</td>';
-        echo '<td>'.$points.'</td>';
+        echo '<td>'. $participant->getNickById($pp[0]) .'</td>';
+        echo '<td>'.$pp[1].'</td>';
         echo '</tr>';
 
-        $points=0;
     }
 
     ?>
